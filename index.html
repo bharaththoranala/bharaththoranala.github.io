@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bharath Thoranala — Data Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+
+    --bg: #0D1B2A;
+    --surface: #122A42;
+    --surface-2: #17324E;
+    --line: #2A4A68;
+    --line-soft: #1E3A56;
+    --text: #ECEFF3;
+    --text-muted: #93A9C1;
+    --accent: #E8A33D;
+    --accent-soft: #E8A33D33;
+    --accent-2: #5FD4D0;
+    --accent-2-soft: #5FD4D033;
+  }
+
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #F4F6F8;
+      --surface: #FFFFFF;
+      --surface-2: #ECF0F3;
+      --line: #C7D3DD;
+      --line-soft: #DCE4EA;
+      --text: #132539;
+      --text-muted: #566E85;
+      --accent: #B0691D;
+      --accent-soft: #B0691D22;
+      --accent-2: #147A76;
+      --accent-2-soft: #147A7622;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #F4F6F8;
+    --surface: #FFFFFF;
+    --surface-2: #ECF0F3;
+    --line: #C7D3DD;
+    --line-soft: #DCE4EA;
+    --text: #132539;
+    --text-muted: #566E85;
+    --accent: #B0691D;
+    --accent-soft: #B0691D22;
+    --accent-2: #147A76;
+    --accent-2-soft: #147A7622;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0D1B2A;
+    --surface: #122A42;
+    --surface-2: #17324E;
+    --line: #2A4A68;
+    --line-soft: #1E3A56;
+    --text: #ECEFF3;
+    --text-muted: #93A9C1;
+    --accent: #E8A33D;
+    --accent-soft: #E8A33D33;
+    --accent-2: #5FD4D0;
+    --accent-2-soft: #5FD4D033;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-attachment: fixed;
+  }
+
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 20;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 28px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .brand span { color: var(--accent); }
+  .navlinks { display: flex; gap: 24px; font-size: 14px; }
+  .navlinks a {
+    text-decoration: none;
+    color: var(--text-muted);
+    padding: 6px 0;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .navlinks a:hover { color: var(--text); border-color: var(--accent); }
+  .navlinks a:focus-visible, a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent-2);
+    outline-offset: 3px;
+  }
+  @media (max-width: 640px) { .navlinks { display: none; } }
+
+  /* ---------- hero ---------- */
+  .hero {
+    padding: 72px 0 40px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; padding-top: 48px; }
+  }
+  .hero-text { animation: rise 0.7s ease both; }
+  .kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--accent-2);
+    margin: 0 0 14px;
+  }
+  h1 {
+    font-size: clamp(34px, 5vw, 52px);
+    line-height: 1.08;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    max-width: 12ch;
+  }
+  .lede {
+    color: var(--text-muted);
+    font-size: 17px;
+    max-width: 46ch;
+    margin: 0 0 28px;
+  }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 11px 20px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid transparent;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--accent); color: #1A1204; }
+  .btn-primary:hover { background: color-mix(in srgb, var(--accent) 90%, white 10%); }
+  .btn-ghost { border-color: var(--line); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--accent-2); }
+
+  .hero-diagram { animation: rise 0.9s ease 0.15s both; }
+  .hero-diagram svg { width: 100%; height: auto; display: block; }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .flow-line { stroke-dasharray: 6 5; animation: dash 3.2s linear infinite; }
+  @keyframes dash { to { stroke-dashoffset: -110; } }
+  @media (prefers-reduced-motion: reduce) {
+    .flow-line { animation: none; }
+    .hero-text, .hero-diagram { animation: none; }
+  }
+
+  /* ---------- stat strip ---------- */
+  .stats {
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+    padding: 26px 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 700px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+  .stat-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .stat-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* ---------- sections ---------- */
+  section { padding: 76px 0; }
+  .section-head { margin-bottom: 40px; max-width: 56ch; }
+  .section-head .kicker { margin-bottom: 10px; }
+  h2 {
+    font-size: clamp(24px, 3vw, 30px);
+    margin: 0 0 12px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .section-head p { color: var(--text-muted); margin: 0; font-size: 15.5px; }
+
+  /* ---------- case studies ---------- */
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  @media (max-width: 780px) { .work-grid { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    padding: 26px 26px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .card-client {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 0 0 6px;
+  }
+  .card h3 { margin: 0; font-size: 19px; line-height: 1.3; }
+  .metric-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    padding: 4px 9px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .card p { margin: 0; color: var(--text-muted); font-size: 14.5px; }
+  .card-diagram { width: 100%; }
+  .card-diagram svg { width: 100%; height: auto; display: block; }
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 2px; }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--accent-2);
+    background: var(--accent-2-soft);
+    border: 1px solid var(--accent-2);
+    border-radius: 3px;
+    padding: 3px 8px;
+  }
+
+  /* ---------- timeline ---------- */
+  .timeline { border-left: 2px solid var(--line); padding-left: 28px; display: flex; flex-direction: column; gap: 36px; }
+  .tl-item { position: relative; }
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -34px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px var(--line);
+  }
+  .tl-role { font-size: 18px; font-weight: 700; margin: 0 0 2px; }
+  .tl-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin: 0 0 10px;
+  }
+  .tl-desc { color: var(--text-muted); font-size: 14.5px; margin: 0; max-width: 70ch; }
+
+  /* ---------- skills ---------- */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 40px;
+  }
+  @media (max-width: 700px) { .skills-grid { grid-template-columns: 1fr; } }
+  .skill-group h4 {
+    font-size: 13px;
+    text-transform: none;
+    color: var(--accent-2);
+    margin: 0 0 12px;
+    font-weight: 600;
+  }
+  .skill-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    padding: 5px 10px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    color: var(--text);
+    background: var(--surface);
+  }
+
+  /* ---------- footer ---------- */
+  footer {
+    border-top: 1px solid var(--line-soft);
+    padding: 56px 0 calc(56px + env(safe-area-inset-bottom, 0px));
+  }
+  .footer-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  footer h2 { max-width: 14ch; }
+  .contact-list { display: flex; flex-direction: column; gap: 8px; font-size: 15px; }
+  .contact-list a { text-decoration: none; border-bottom: 1px solid var(--line); }
+  .contact-list a:hover { border-color: var(--accent); color: var(--accent); }
+  .fine-print {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line-soft);
+    font-size: 12.5px;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">BHARATH<span>.</span>THORANALA</div>
+    <nav class="navlinks">
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-text">
+      <p class="kicker">Data Engineer — AWS &amp; cloud-native pipelines</p>
+      <h1>I build the pipelines other teams build on.</h1>
+      <p class="lede">7+ years designing data lakes, streaming pipelines, and governed lakehouse architectures for finance and healthcare enterprises — from raw ingestion to analytics-ready data, at multi-terabyte scale.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mailto:bharaththoranala79@gmail.com">Get in touch</a>
+        <a class="btn btn-ghost" href="https://linkedin.com/in/bharath-thoranala-98a6b3288" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-ghost" href="#work">See the work</a>
+      </div>
+    </div>
+    <div class="hero-diagram" aria-hidden="true">
+      <svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--accent-2)"/>
+          </marker>
+        </defs>
+        <!-- nodes -->
+        <g font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--text)">
+          <rect x="14" y="30" width="80" height="40" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+          <text x="54" y="54" text-anchor="middle">S3</text>
+
+          <rect x="14" y="110" width="80" height="40" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+          <text x="54" y="134" text-anchor="middle">Kinesis</text>
+
+          <rect x="140" y="70" width="90" height="40" rx="3" fill="var(--surface)" stroke="var(--accent)"/>
+          <text x="185" y="94" text-anchor="middle" fill="var(--accent)">Spark</text>
+
+          <rect x="140" y="150" width="90" height="40" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+          <text x="185" y="174" text-anchor="middle">Glue ETL</text>
+
+          <rect x="270" y="30" width="80" height="40" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+          <text x="310" y="54" text-anchor="middle">Redshift</text>
+
+          <rect x="270" y="110" width="80" height="40" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+          <text x="310" y="134" text-anchor="middle">Athena</text>
+
+          <rect x="270" y="190" width="80" height="40" rx="3" fill="var(--surface)" stroke="var(--line)"/>
+          <text x="310" y="214" text-anchor="middle">SageMaker</text>
+        </g>
+        <!-- flows -->
+        <g stroke="var(--accent-2)" stroke-width="1.6" fill="none" marker-end="url(#arrow)">
+          <path class="flow-line" d="M94,50 L140,90"/>
+          <path class="flow-line" d="M94,130 L140,95"/>
+          <path class="flow-line" d="M94,130 L140,168"/>
+          <path class="flow-line" d="M230,88 L270,50"/>
+          <path class="flow-line" d="M230,92 L270,128"/>
+          <path class="flow-line" d="M230,172 L270,208"/>
+        </g>
+      </svg>
+    </div>
+  </header>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div>
+      <div class="stat-num">7+</div>
+      <div class="stat-label">Years in data engineering</div>
+    </div>
+    <div>
+      <div class="stat-num">30%</div>
+      <div class="stat-label">Data quality improvement from a metadata-driven validation framework</div>
+    </div>
+    <div>
+      <div class="stat-num">60%</div>
+      <div class="stat-label">Shorter release cycles after moving to Terraform + CI/CD</div>
+    </div>
+    <div>
+      <div class="stat-num">50%</div>
+      <div class="stat-label">Less manual reporting effort after BI dashboard automation</div>
+    </div>
+  </div>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="section-head">
+      <p class="kicker">Selected work</p>
+      <h2>Pipelines built for scale, not demos</h2>
+      <p>Enterprise engagements in finance and healthcare, described at the architecture level — client data stays client data.</p>
+    </div>
+
+    <div class="work-grid">
+
+      <!-- Case 1 -->
+      <article class="card">
+        <div class="card-top">
+          <div>
+            <p class="card-client">Morgan Stanley — Financial Services</p>
+            <h3>Real-time ingestion for high-volume transaction data</h3>
+          </div>
+          <span class="metric-badge">Sub-minute latency</span>
+        </div>
+        <p>Downstream risk and analytics systems needed near-real-time visibility into transaction data, but batch ETL couldn't keep up. I built a streaming pipeline from source events to queryable storage, with event-driven monitoring so failures surface before they reach analysts.</p>
+        <div class="card-diagram" aria-hidden="true">
+          <svg viewBox="0 0 400 90" xmlns="http://www.w3.org/2000/svg">
+            <g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--text)">
+              <rect x="6" y="25" width="76" height="38" rx="3" fill="var(--surface-2)" stroke="var(--line)"/>
+              <text x="44" y="48" text-anchor="middle">Kafka /<tspan x="44" dy="12">Kinesis</tspan></text>
+              <rect x="120" y="25" width="90" height="38" rx="3" fill="var(--surface-2)" stroke="var(--accent)"/>
+              <text x="165" y="48" text-anchor="middle" fill="var(--accent)">Spark<tspan x="165" dy="12">Structured Streaming</tspan></text>
+              <rect x="248" y="25" width="60" height="38" rx="3" fill="var(--surface-2)" stroke="var(--line)"/>
+              <text x="278" y="48" text-anchor="middle">S3</text>
+              <rect x="336" y="25" width="58" height="38" rx="3" fill="var(--surface-2)" stroke="var(--line)"/>
+              <text x="365" y="48" text-anchor="middle">SNS/<tspan x="365" dy="12">CloudWatch</tspan></text>
+            </g>
+            <g stroke="var(--accent-2)" stroke-width="1.4" fill="none">
+              <line x1="82" y1="44" x2="120" y2="44" marker-end="url(#arrow)"/>
+              <line x1="210" y1="44" x2="248" y2="44" marker-end="url(#arrow)"/>
+              <line x1="308" y1="44" x2="336" y2="44" marker-end="url(#arrow)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="tags">
+          <span class="tag">Kinesis</span><span class="tag">Kafka</span><span class="tag">Spark Streaming</span><span class="tag">Lambda</span><span class="tag">CloudWatch</span>
+        </div>
+      </article>
+
+      <!-- Case 2 -->
+      <article class="card">
+        <div class="card-top">
+          <div>
+            <p class="card-client">Novartis — Healthcare</p>
+            <h3>Metadata-driven data quality framework</h3>
+          </div>
+          <span class="metric-badge">+30% data quality</span>
+        </div>
+        <p>Healthcare data arrived from dozens of upstream sources with inconsistent schemas and no systematic way to catch bad records before they reached analysts. I built a reusable validation framework covering schema checks, completeness, duplicate detection, and reconciliation.</p>
+        <div class="card-diagram" aria-hidden="true">
+          <svg viewBox="0 0 400 90" xmlns="http://www.w3.org/2000/svg">
+            <g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--text)">
+              <rect x="6" y="25" width="80" height="38" rx="3" fill="var(--surface-2)" stroke="var(--line)"/>
+              <text x="46" y="48" text-anchor="middle">Raw sources</text>
+              <rect x="126" y="25" width="96" height="38" rx="3" fill="var(--surface-2)" stroke="var(--accent)"/>
+              <text x="174" y="44" text-anchor="middle" fill="var(--accent)">PySpark +<tspan x="174" dy="12">Delta checks</tspan></text>
+              <rect x="262" y="25" width="60" height="38" rx="3" fill="var(--surface-2)" stroke="var(--line)"/>
+              <text x="292" y="48" text-anchor="middle">Delta Lake</text>
+              <rect x="342" y="25" width="52" height="38" rx="3" fill="var(--surface-2)" stroke="var(--line)"/>
+              <text x="368" y="44" text-anchor="middle">Airflow</text>
+            </g>
+            <g stroke="var(--accent-2)" stroke-width="1.4" fill="none">
+              <line x1="86" y1="44" x2="126" y2="44" marker-end="url(#arrow)"/>
+              <line x1="222" y1="44" x2="262" y2="44" marker-end="url(#arrow)"/>
+              <line x1="322" y1="44" x2="342" y2="44" marker-end="url(#arrow)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="tags">
+          <span class="tag">PySpark</span><span class="tag">Delta Lake</span><span class="tag">SQL</span><span class="tag">Airflow</span>
+        </div>
+      </article>
+
+      <!-- Case 3 -->
+      <article class="card">
+        <div class="card-top">
+          <div>
+            <p class="card-client">Ebix — Insurance</p>
+            <h3>Data lake modernization across siloed sources</h3>
+          </div>
+          <span class="metric-badge">Multi-TB scale</span>
+        </div>
+        <p>Insurance data was scattered across Oracle, SQL Server, and MongoDB with no unified analytics layer. I designed a raw/processed/curated S3 data lake and reusable Glue-based ingestion frameworks that multiple business domains now build on.</p>
+        <div class="card-diagram" aria-hidden="true">
+          <svg viewBox="0 0 400 90" xmlns="http://www.w3.org/2000/svg">
+            <g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--text)">
+              <rect x="6" y="25" width="86" height="38" rx="3" fill="var(--surface-2)" stroke="var(--line)"/>
+              <text x="49" y="40" text-anchor="middle">Oracle / SQL Server</text>
+              <text x="49" y="52" text-anchor="middle">/ MongoDB</text>
+              <rect x="132" y="25" width="86" height="38" rx="3" fill="var(--surface-2)" stroke="var(--accent)"/>
+              <text x="175" y="44" text-anchor="middle" fill="var(--accent)">Glue + EMR<tspan x="175" dy="12">(Spark)</tspan></text>
+              <rect x="258" y="25" width="60" height="38" rx="3" fill="var(--surface-2)" stroke="var(--line)"/>
+              <text x="288" y="48" text-anchor="middle">S3 lake</text>
+              <rect x="338" y="25" width="56" height="38" rx="3" fill="var(--surface-2)" stroke="var(--line)"/>
+              <text x="366" y="48" text-anchor="middle">Redshift</text>
+            </g>
+            <g stroke="var(--accent-2)" stroke-width="1.4" fill="none">
+              <line x1="92" y1="44" x2="132" y2="44" marker-end="url(#arrow)"/>
+              <line x1="218" y1="44" x2="258" y2="44" marker-end="url(#arrow)"/>
+              <line x1="318" y1="44" x2="338" y2="44" marker-end="url(#arrow)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="tags">
+          <span class="tag">AWS Glue</span><span class="tag">EMR</span><span class="tag">Redshift</span><span class="tag">Athena</span>
+        </div>
+      </article>
+
+      <!-- Case 4 -->
+      <article class="card">
+        <div class="card-top">
+          <div>
+            <p class="card-client">Novartis — Healthcare</p>
+            <h3>RAG-based knowledge search on enterprise documents</h3>
+          </div>
+          <span class="metric-badge">GenAI + data platform</span>
+        </div>
+        <p>Analysts were losing hours manually searching scattered healthcare documents for answers already sitting in existing reports. I built a retrieval-augmented search layer on top of the existing lakehouse, so questions get answered from governed, up-to-date sources.</p>
+        <div class="card-diagram" aria-hidden="true">
+          <svg viewBox="0 0 400 90" xmlns="http://www.w3.org/2000/svg">
+            <g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--text)">
+              <rect x="6" y="25" width="90" height="38" rx="3" fill="var(--surface-2)" stroke="var(--line)"/>
+              <text x="51" y="48" text-anchor="middle">Enterprise docs</text>
+              <rect x="136" y="25" width="70" height="38" rx="3" fill="var(--surface-2)" stroke="var(--line)"/>
+              <text x="171" y="48" text-anchor="middle">FAISS</text>
+              <rect x="246" y="25" width="90" height="38" rx="3" fill="var(--surface-2)" stroke="var(--accent)"/>
+              <text x="291" y="44" text-anchor="middle" fill="var(--accent)">LangChain +<tspan x="291" dy="12">Azure OpenAI</tspan></text>
+              <rect x="356" y="25" width="40" height="38" rx="3" fill="var(--surface-2)" stroke="var(--line)"/>
+              <text x="376" y="48" text-anchor="middle">Q&amp;A</text>
+            </g>
+            <g stroke="var(--accent-2)" stroke-width="1.4" fill="none">
+              <line x1="96" y1="44" x2="136" y2="44" marker-end="url(#arrow)"/>
+              <line x1="206" y1="44" x2="246" y2="44" marker-end="url(#arrow)"/>
+              <line x1="336" y1="44" x2="356" y2="44" marker-end="url(#arrow)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="tags">
+          <span class="tag">Azure OpenAI</span><span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">RAG</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-head">
+      <p class="kicker">Experience</p>
+      <h2>Where this was built</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <p class="tl-role">AI/ML/Data Engineer — Morgan Stanley</p>
+        <p class="tl-meta mono">New York, NY · Jan 2024 – Present</p>
+        <p class="tl-desc">Cloud-native data architecture across AWS and Azure: Glue/S3/EMR ETL, Redshift and Athena analytics, Kinesis and Kafka streaming, and SageMaker-based ML workflows, deployed through Terraform and CI/CD.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-role">Data Engineer — Novartis</p>
+        <p class="tl-meta mono">Hyderabad, India · Aug 2019 – Dec 2022</p>
+        <p class="tl-desc">Healthcare-scale pipelines on AWS Glue, EMR, and Databricks, metadata-driven data quality frameworks, and RAG-based document search using Azure OpenAI and LangChain, delivered under HIPAA-compliant security controls.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-role">Data Engineer — Ebix</p>
+        <p class="tl-meta mono">Hyderabad, India · Feb 2018 – Jun 2019</p>
+        <p class="tl-desc">Enterprise-scale AWS data lake and warehouse for multi-terabyte insurance datasets, with reusable PySpark frameworks for cleansing, enrichment, and transformation across business domains.</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-role">Education</p>
+        <p class="tl-meta mono">University of Houston · NIT Warangal</p>
+        <p class="tl-desc">M.S. in Data Science, University of Houston — B.Tech in Mechanical Engineering, NIT Warangal.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-head">
+      <p class="kicker">Toolkit</p>
+      <h2>What I build with</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4>Languages &amp; processing</h4>
+        <div class="skill-chips">
+          <span class="chip">Python</span><span class="chip">PySpark</span><span class="chip">SQL</span><span class="chip">Spark SQL</span><span class="chip">Scala</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>AWS data platform</h4>
+        <div class="skill-chips">
+          <span class="chip">Glue</span><span class="chip">S3</span><span class="chip">EMR</span><span class="chip">Redshift</span><span class="chip">Athena</span><span class="chip">Lambda</span><span class="chip">SageMaker</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Lakehouse &amp; warehousing</h4>
+        <div class="skill-chips">
+          <span class="chip">Databricks</span><span class="chip">Delta Lake</span><span class="chip">Unity Catalog</span><span class="chip">Snowflake</span><span class="chip">BigQuery</span><span class="chip">Azure Synapse</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Streaming &amp; messaging</h4>
+        <div class="skill-chips">
+          <span class="chip">Kafka</span><span class="chip">Kinesis</span><span class="chip">Spark Structured Streaming</span><span class="chip">SNS/SQS</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>AI / GenAI</h4>
+        <div class="skill-chips">
+          <span class="chip">Azure OpenAI</span><span class="chip">LangChain</span><span class="chip">LangGraph</span><span class="chip">RAG</span><span class="chip">Hugging Face</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>DevOps &amp; IaC</h4>
+        <div class="skill-chips">
+          <span class="chip">Terraform</span><span class="chip">GitHub Actions</span><span class="chip">Jenkins</span><span class="chip">Airflow</span><span class="chip">CloudWatch</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <h2>Let's talk about your data platform.</h2>
+      <div class="contact-list mono">
+        <a href="mailto:bharaththoranala79@gmail.com">bharaththoranala79@gmail.com</a>
+        <a href="https://linkedin.com/in/bharath-thoranala-98a6b3288" target="_blank" rel="noopener">linkedin.com/in/bharath-thoranala</a>
+        <a href="https://github.com/YOUR-USERNAME" target="_blank" rel="noopener">github.com/YOUR-USERNAME</a>
+      </div>
+    </div>
+    <div class="wrap fine-print" style="padding:0;">Houston, TX · Open to Data Engineer / AI-ML Data Engineer roles</div>
+  </div>
+</footer>
+
+</body>
+</html>
